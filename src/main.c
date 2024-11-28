@@ -29,9 +29,17 @@ int main(void) {
         return EXIT_FAILURE;
     }
     
+    // Initialize Memory monitoring
+    if (init_memory_monitor() != 0) {
+        fprintf(stderr, "Failed to initialize Memory monitor\n");
+        cleanup_cpu_monitor();
+        return EXIT_FAILURE;
+    }
+    
     // Initialize ncurses
     if (init_display() != 0) {
         fprintf(stderr, "Failed to initialize display\n");
+        cleanup_memory_monitor();
         cleanup_cpu_monitor();
         return EXIT_FAILURE;
     }
@@ -46,6 +54,7 @@ int main(void) {
     
     // Cleanup
     cleanup_display();
+    cleanup_memory_monitor();
     cleanup_cpu_monitor();
     return EXIT_SUCCESS;
 } 

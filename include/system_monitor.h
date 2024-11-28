@@ -13,15 +13,14 @@
 #include <string.h>
 #include <unistd.h>
 #include "cpu.h"
+#include "memory.h"
 
 /**
  * @brief Structure to hold system statistics
  */
 typedef struct {
     CPUStats cpu;        /**< CPU statistics */
-    double memory_usage;  /**< Memory usage percentage */
-    long total_memory;    /**< Total system memory */
-    long free_memory;     /**< Free system memory */
+    MemoryStats memory;  /**< Memory statistics */
 } SystemStats;
 
 /**

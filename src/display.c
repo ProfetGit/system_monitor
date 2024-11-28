@@ -7,12 +7,31 @@
 
 // Window dimensions
 #define CPU_WIN_HEIGHT 4
-#define MEM_WIN_HEIGHT 3
+#define MEM_WIN_HEIGHT 5
 #define WIN_WIDTH 60
 
 // Global window pointers
 static WINDOW *cpu_win = NULL;
 static WINDOW *mem_win = NULL;
+
+/**
+ * @brief Convert bytes to human readable format
+ * @param bytes Number of bytes
+ * @param buf Buffer to store the result
+ * @param size Size of the buffer
+ */
+static void format_bytes(unsigned long bytes, char *buf, size_t size) {
+    const char *units[] = {"B", "KB", "MB", "GB", "TB"};
+    int i = 0;
+    double size_d = bytes;
+    
+    while (size_d >= 1024 && i < 4) {
+        size_d /= 1024;
+        i++;
+    }
+    
+    snprintf(buf, size, "%.1f %s", size_d, units[i]);
+}
 
 int init_display(void) {
     // Initialize ncurses
@@ -66,6 +85,8 @@ static int get_usage_color(double usage) {
 void display_stats(const SystemStats *stats) {
     if (!stats || !cpu_win || !mem_win) return;
 
+    char buf[32];
+
     // Update CPU window
     werase(cpu_win);
     box(cpu_win, 0, 0);
@@ -85,13 +106,31 @@ void display_stats(const SystemStats *stats) {
     // Update Memory window
     werase(mem_win);
     box(mem_win, 0, 0);
-    mvwprintw(mem_win, 0, 2, " Memory Usage ");
-    wattron(mem_win, COLOR_PAIR(get_usage_color(stats->memory_usage)));
-    mvwprintw(mem_win, 1, 2, "%.1f%% (%.1f GB / %.1f GB)",
-              stats->memory_usage,
-              (stats->total_memory - stats->free_memory) / 1024.0 / 1024.0,
-              stats->total_memory / 1024.0 / 1024.0);
-    wattroff(mem_win, COLOR_PAIR(get_usage_color(stats->memory_usage)));
+    mvwprintw(mem_win, 0, 2, " Memory Information ");
+
+    // Physical memory
+    format_bytes(stats->memory.available, buf, sizeof(buf));
+    wattron(mem_win, COLOR_PAIR(get_usage_color(stats->memory.usage)));
+    mvwprintw(mem_win, 1, 2, "RAM: %.1f%% (%s available)", 
+              stats->memory.usage, buf);
+    wattroff(mem_win, COLOR_PAIR(get_usage_color(stats->memory.usage)));
+
+    format_bytes(stats->memory.total, buf, sizeof(buf));
+    mvwprintw(mem_win, 2, 4, "Total: %s", buf);
+    format_bytes(stats->memory.cached, buf, sizeof(buf));
+    mvwprintw(mem_win, 2, 30, "Cached: %s", buf);
+
+    // Swap memory
+    if (stats->memory.swap_total > 0) {
+        wattron(mem_win, COLOR_PAIR(get_usage_color(stats->memory.swap_usage)));
+        mvwprintw(mem_win, 3, 2, "Swap: %.1f%% used", stats->memory.swap_usage);
+        wattroff(mem_win, COLOR_PAIR(get_usage_color(stats->memory.swap_usage)));
+        format_bytes(stats->memory.swap_total - stats->memory.swap_free, buf, sizeof(buf));
+        mvwprintw(mem_win, 3, 30, "Used: %s", buf);
+    } else {
+        mvwprintw(mem_win, 3, 2, "Swap: Not available");
+    }
+
     wrefresh(mem_win);
 
     // Refresh the screen

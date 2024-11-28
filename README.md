@@ -1,64 +1,58 @@
-# Terminal System Monitor
+# System Monitor
 
-A terminal-based system monitoring application written in C using ncurses.
+A real-time system monitoring application that provides detailed information about CPU, memory, disk, and GPU usage.
+
+## Overview
+
+This application monitors various system resources in real-time and displays them in a user-friendly ncurses-based interface. It provides comprehensive information about:
+
+- CPU usage and frequency
+- Memory usage (RAM and swap)
+- Disk space and I/O statistics
+- GPU temperature and memory usage
 
 ## Features
 
-- Real-time CPU usage monitoring
-- Memory usage statistics
-- Clean ncurses-based interface
-- Documented using Doxygen
-
-## Prerequisites
-
-- GCC compiler
-- Make build system
-- ncurses library
-- Doxygen (for generating documentation)
-
-On Ubuntu/Debian, install the required packages:
-
-```bash
-sudo apt-get install gcc make libncurses5-dev doxygen
-```
+- Real-time monitoring of system resources
+- Ncurses-based user interface
+- Detailed statistics for CPU, memory, disk, and GPU
+- Configurable update intervals
+- Low system overhead
 
 ## Building
 
-To build the project:
+To build the application, you need:
+- GCC or Clang compiler
+- ncurses development libraries
+- CMake (version 3.10 or higher)
 
 ```bash
+mkdir build
+cd build
+cmake ..
 make
 ```
 
-To generate documentation:
+## Usage
 
 ```bash
-make docs
+./system_monitor [update_interval_ms]
 ```
 
-To clean build files:
-
-```bash
-make clean
-```
-
-## Running
-
-After building, run the system monitor:
-
-```bash
-./build/system_monitor
-```
-
-Press Ctrl+C to exit the program.
-
-## Project Structure
-
-- `src/` - Source files
-- `include/` - Header files
-- `docs/` - Documentation
-- `tests/` - Test files (upcoming)
+The optional `update_interval_ms` parameter specifies the update interval in milliseconds (default: 1000).
 
 ## Documentation
 
-After generating the documentation with `make docs`, open `docs/html/index.html` in your web browser to view the complete API documentation. 
+The complete API documentation is available in the `docs/html` directory. To generate the documentation:
+
+```bash
+doxygen
+```
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit pull requests. 

@@ -173,28 +173,33 @@ void display_stats(const SystemStats *stats) {
     mvwprintw(mem_win, 0, 2, " Memory Information ");
 
     // Physical memory
-    format_bytes(stats->memory.available, buf, sizeof(buf));
+    format_bytes(stats->memory.used, buf, sizeof(buf));
     color = get_usage_color(stats->memory.usage);
     if (color) wattron(mem_win, COLOR_PAIR(color));
-    mvwprintw(mem_win, 1, 2, "RAM: %.1f%% (%s available)", 
+    mvwprintw(mem_win, 1, 2, "RAM: %.1f%% (%s used)", 
               stats->memory.usage, buf);
     if (color) wattroff(mem_win, COLOR_PAIR(color));
 
     format_bytes(stats->memory.total, buf, sizeof(buf));
-    mvwprintw(mem_win, 2, 4, "Total: %s", buf);
+    mvwprintw(mem_win, 2, 2, "Total: %s", buf);
+    format_bytes(stats->memory.available, buf, sizeof(buf));
+    mvwprintw(mem_win, 2, 25, "Available: %s", buf);
+
+    format_bytes(stats->memory.buffers, buf, sizeof(buf));
+    mvwprintw(mem_win, 3, 2, "Buffers: %s", buf);
     format_bytes(stats->memory.cached, buf, sizeof(buf));
-    mvwprintw(mem_win, 2, 30, "Cached: %s", buf);
+    mvwprintw(mem_win, 3, 25, "Cached: %s", buf);
 
     // Swap memory
     if (stats->memory.swap_total > 0) {
         color = get_usage_color(stats->memory.swap_usage);
         if (color) wattron(mem_win, COLOR_PAIR(color));
-        mvwprintw(mem_win, 3, 2, "Swap: %.1f%% used", stats->memory.swap_usage);
+        mvwprintw(mem_win, 4, 2, "Swap: %.1f%% used", stats->memory.swap_usage);
         if (color) wattroff(mem_win, COLOR_PAIR(color));
         format_bytes(stats->memory.swap_total - stats->memory.swap_free, buf, sizeof(buf));
-        mvwprintw(mem_win, 3, 30, "Used: %s", buf);
+        mvwprintw(mem_win, 4, 25, "Used: %s", buf);
     } else {
-        mvwprintw(mem_win, 3, 2, "Swap: Not available");
+        mvwprintw(mem_win, 4, 2, "Swap: Not available");
     }
 
     wrefresh(mem_win);

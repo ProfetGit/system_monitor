@@ -1,0 +1,101 @@
+/**
+ * @mainpage System Monitor Documentation
+ *
+ * @section intro Introduction
+ * 
+ * The System Monitor is a comprehensive system resource monitoring application
+ * that provides real-time information about various system components. It uses
+ * ncurses for the user interface and is designed to be efficient and lightweight.
+ *
+ * @section arch Architecture
+ *
+ * The application is structured into several key components:
+ *
+ * - Core System Monitor (@ref system_monitor.h)
+ *   - Central coordination of all monitoring activities
+ *   - User interface management
+ *   - Data aggregation
+ *
+ * - Memory Monitoring (@ref memory.h)
+ *   - Physical memory statistics
+ *   - Swap space monitoring
+ *   - Memory pressure indicators
+ *
+ * - CPU Monitoring (@ref cpu.h)
+ *   - Per-core usage statistics
+ *   - Frequency monitoring
+ *   - Load average tracking
+ *
+ * - Disk Monitoring (@ref disk.h)
+ *   - Partition space usage
+ *   - I/O statistics
+ *   - Mount point tracking
+ *
+ * - GPU Monitoring (@ref gpu.h)
+ *   - Temperature monitoring
+ *   - Memory usage tracking
+ *   - Performance metrics
+ *
+ * @section usage Usage Guide
+ *
+ * The application can be started with an optional update interval parameter:
+ * @code{.sh}
+ * ./system_monitor [update_interval_ms]
+ * @endcode
+ *
+ * The default update interval is 1000ms (1 second). The minimum allowed interval
+ * is 100ms to prevent excessive system load.
+ *
+ * @section api API Overview
+ *
+ * The main API functions are:
+ * - init_display() - Initialize the ncurses interface
+ * - update_stats() - Update all system statistics
+ * - display_stats() - Render statistics on screen
+ * - cleanup_display() - Clean up resources
+ *
+ * Each subsystem (CPU, memory, disk, GPU) has its own initialization, update,
+ * and cleanup functions following the same pattern.
+ *
+ * @section datastructs Data Structures
+ *
+ * The key data structures are:
+ * - SystemStats - Main container for all statistics
+ * - CPUStats - CPU-specific statistics
+ * - MemoryStats - Memory usage information
+ * - DiskInfo - Disk space and I/O statistics
+ * - GPUInfo - GPU monitoring data
+ *
+ * @section examples Examples
+ *
+ * Basic usage example:
+ * @code{.c}
+ * SystemStats stats;
+ * if (init_display() != 0) {
+ *     return 1;
+ * }
+ * 
+ * while (1) {
+ *     if (update_stats(&stats) != 0) {
+ *         break;
+ *     }
+ *     display_stats(&stats);
+ *     usleep(1000000); // 1 second interval
+ * }
+ * 
+ * cleanup_display();
+ * @endcode
+ *
+ * @section notes Implementation Notes
+ *
+ * - All memory values are in bytes
+ * - Percentages are represented as doubles from 0.0 to 100.0
+ * - Error handling follows the convention: 0 for success, -1 for failure
+ * - The application is designed to be signal-safe
+ *
+ * @section requirements System Requirements
+ *
+ * - Linux-based operating system
+ * - ncurses library
+ * - Root access for some GPU monitoring features
+ */ 

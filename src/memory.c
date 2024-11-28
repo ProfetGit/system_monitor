@@ -24,7 +24,8 @@ static int read_proc_meminfo(MemoryStats *stats) {
 
     char line[256];
     unsigned long memTotal = 0, memFree = 0, memAvailable = 0;
-    unsigned long cached = 0, swapTotal = 0, swapFree = 0;
+    unsigned long buffers = 0, cached = 0, swapTotal = 0, swapFree = 0;
+    unsigned long shmem = 0, sreclaimable = 0;
 
     while (fgets(line, sizeof(line), fp)) {
         unsigned long value;
@@ -34,27 +35,39 @@ static int read_proc_meminfo(MemoryStats *stats) {
             memFree = value * KB_TO_BYTES;
         else if (sscanf(line, "MemAvailable: %lu kB", &value) == 1)
             memAvailable = value * KB_TO_BYTES;
+        else if (sscanf(line, "Buffers: %lu kB", &value) == 1)
+            buffers = value * KB_TO_BYTES;
         else if (sscanf(line, "Cached: %lu kB", &value) == 1)
             cached = value * KB_TO_BYTES;
         else if (sscanf(line, "SwapTotal: %lu kB", &value) == 1)
             swapTotal = value * KB_TO_BYTES;
         else if (sscanf(line, "SwapFree: %lu kB", &value) == 1)
             swapFree = value * KB_TO_BYTES;
+        else if (sscanf(line, "Shmem: %lu kB", &value) == 1)
+            shmem = value * KB_TO_BYTES;
+        else if (sscanf(line, "SReclaimable: %lu kB", &value) == 1)
+            sreclaimable = value * KB_TO_BYTES;
     }
 
     fclose(fp);
 
     if (memTotal == 0) return -1;  // Failed to read memory info
 
+    // Calculate actual memory values
     stats->total = memTotal;
     stats->free = memFree;
     stats->available = memAvailable;
-    stats->cached = cached;
+    stats->buffers = buffers;
+    stats->cached = cached + sreclaimable - shmem;  // Actual cache
     stats->swap_total = swapTotal;
     stats->swap_free = swapFree;
 
+    // Calculate used memory (excluding cache and buffers)
+    unsigned long used = memTotal - memFree - buffers - (cached + sreclaimable - shmem);
+    stats->used = used;
+
     // Calculate usage percentages
-    stats->usage = 100.0 * (1.0 - ((double)memAvailable / memTotal));
+    stats->usage = 100.0 * ((double)used / memTotal);
     if (swapTotal > 0) {
         stats->swap_usage = 100.0 * (1.0 - ((double)swapFree / swapTotal));
     } else {
@@ -65,7 +78,6 @@ static int read_proc_meminfo(MemoryStats *stats) {
 }
 
 int init_memory_monitor(void) {
-    // Nothing to initialize for now
     return 0;
 }
 
@@ -75,5 +87,5 @@ int update_memory_stats(MemoryStats *stats) {
 }
 
 void cleanup_memory_monitor(void) {
-    // Nothing to clean up for now
+    // Nothing to clean up
 } 

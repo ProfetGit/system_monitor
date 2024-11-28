@@ -3,8 +3,8 @@
  * @brief Main header file for the system monitor application
  * 
  * This header defines the main structures and functions for the system monitoring
- * application. It includes functionality for monitoring CPU, memory, disk, and GPU
- * statistics, as well as the ncurses-based user interface.
+ * application. It includes functionality for monitoring CPU, memory, disk, GPU,
+ * and network statistics, as well as the ncurses-based user interface.
  */
 
 #ifndef SYSTEM_MONITOR_H
@@ -18,19 +18,21 @@
 #include "memory.h"
 #include "disk.h"
 #include "gpu.h"
+#include "network.h"
 
 /**
  * @brief Structure to hold system statistics
  * 
  * This structure serves as the central data container for all system metrics.
  * It aggregates statistics from various subsystems including CPU, memory,
- * disk, and GPU information.
+ * disk, GPU, and network information.
  */
 typedef struct {
     CPUStats cpu;        /**< CPU statistics including usage and frequency information */
     MemoryStats memory;  /**< Memory statistics including RAM and swap usage */
     DiskInfo disks;      /**< Disk statistics including space and I/O metrics */
     GPUInfo gpus;        /**< GPU statistics including temperature and memory usage */
+    NetworkStats network; /**< Network interface statistics */
 } SystemStats;
 
 /**

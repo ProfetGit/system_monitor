@@ -3,8 +3,8 @@
  * @brief Implementation of system statistics gathering functions
  * 
  * This file contains the implementation of functions that gather and update
- * various system statistics including CPU, memory, disk, and GPU information.
- * It serves as the central point for collecting all system metrics.
+ * various system statistics including CPU, memory, disk, GPU, and network
+ * information. It serves as the central point for collecting all system metrics.
  */
 
 #include "system_monitor.h"
@@ -16,7 +16,7 @@
  * @return 0 on successful update of all statistics, -1 if any update fails
  * 
  * @details This function coordinates the update of all system statistics by calling
- * individual update functions for each subsystem (CPU, memory, disk, GPU).
+ * individual update functions for each subsystem (CPU, memory, disk, GPU, network).
  * If any of these updates fail, the function returns immediately with -1.
  * 
  * @note All statistics are updated atomically - either all succeed or none are updated
@@ -37,6 +37,9 @@ int update_stats(SystemStats *stats) {
 
     // Update GPU statistics
     if (update_gpu_stats(&stats->gpus) != 0) return -1;
+
+    // Update Network statistics
+    if (update_network_stats(&stats->network) != 0) return -1;
 
     return 0;
 } 

@@ -53,9 +53,20 @@ int main(void) {
         return EXIT_FAILURE;
     }
     
+    // Initialize Network monitoring
+    if (init_network_monitoring() != 0) {
+        fprintf(stderr, "Failed to initialize Network monitor\n");
+        cleanup_gpu_monitor();
+        cleanup_disk_monitor();
+        cleanup_memory_monitoring();
+        cleanup_cpu_monitor();
+        return EXIT_FAILURE;
+    }
+    
     // Initialize ncurses
     if (init_display() != 0) {
         fprintf(stderr, "Failed to initialize display\n");
+        cleanup_network_monitoring();
         cleanup_gpu_monitor();
         cleanup_disk_monitor();
         cleanup_memory_monitoring();
@@ -73,6 +84,7 @@ int main(void) {
     
     // Cleanup
     cleanup_display();
+    cleanup_network_monitoring();
     cleanup_gpu_monitor();
     cleanup_disk_monitor();
     cleanup_memory_monitoring();

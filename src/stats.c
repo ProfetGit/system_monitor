@@ -18,5 +18,8 @@ int update_stats(SystemStats *stats) {
     // Update Disk statistics
     if (update_disk_stats(&stats->disks) != 0) return -1;
 
+    // Update GPU statistics
+    if (update_gpu_stats(&stats->gpus) != 0) return -1;
+
     return 0;
 } 

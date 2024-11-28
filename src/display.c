@@ -10,12 +10,14 @@
 #define CPU_WIN_HEIGHT 4
 #define MEM_WIN_HEIGHT 5
 #define DISK_WIN_HEIGHT 12
+#define GPU_WIN_HEIGHT 12
 #define WIN_WIDTH 60
 
 // Global window pointers
 static WINDOW *cpu_win = NULL;
 static WINDOW *mem_win = NULL;
 static WINDOW *disk_win = NULL;
+static WINDOW *gpu_win = NULL;
 
 /**
  * @brief Convert bytes to human readable format
@@ -44,11 +46,11 @@ int init_display(void) {
     }
 
     // Check terminal size
-    if (LINES < (CPU_WIN_HEIGHT + MEM_WIN_HEIGHT + DISK_WIN_HEIGHT + 4) ||
+    if (LINES < (CPU_WIN_HEIGHT + MEM_WIN_HEIGHT + DISK_WIN_HEIGHT + GPU_WIN_HEIGHT + 4) ||
         COLS < (WIN_WIDTH + 2)) {
         endwin();
         fprintf(stderr, "Terminal window too small. Minimum size required: %dx%d\n",
-                WIN_WIDTH + 2, CPU_WIN_HEIGHT + MEM_WIN_HEIGHT + DISK_WIN_HEIGHT + 4);
+                WIN_WIDTH + 2, CPU_WIN_HEIGHT + MEM_WIN_HEIGHT + DISK_WIN_HEIGHT + GPU_WIN_HEIGHT + 4);
         return -1;
     }
 
@@ -58,6 +60,7 @@ int init_display(void) {
         init_pair(1, COLOR_GREEN, COLOR_BLACK);
         init_pair(2, COLOR_YELLOW, COLOR_BLACK);
         init_pair(3, COLOR_RED, COLOR_BLACK);
+        init_pair(4, COLOR_CYAN, COLOR_BLACK);
     }
 
     // Configure ncurses
@@ -68,7 +71,7 @@ int init_display(void) {
     keypad(stdscr, TRUE); // Enable keypad input
 
     // Calculate window positions
-    int start_y = (LINES - (CPU_WIN_HEIGHT + MEM_WIN_HEIGHT + DISK_WIN_HEIGHT + 2)) / 2;
+    int start_y = (LINES - (CPU_WIN_HEIGHT + MEM_WIN_HEIGHT + DISK_WIN_HEIGHT + GPU_WIN_HEIGHT + 3)) / 2;
     int start_x = (COLS - WIN_WIDTH) / 2;
 
     // Create windows with error checking
@@ -98,8 +101,20 @@ int init_display(void) {
         return -1;
     }
 
-    // Enable scrolling for disk window
+    gpu_win = newwin(GPU_WIN_HEIGHT, WIN_WIDTH,
+                     start_y + CPU_WIN_HEIGHT + MEM_WIN_HEIGHT + DISK_WIN_HEIGHT + 3, start_x);
+    if (!gpu_win) {
+        delwin(cpu_win);
+        delwin(mem_win);
+        delwin(disk_win);
+        endwin();
+        fprintf(stderr, "Failed to create GPU window\n");
+        return -1;
+    }
+
+    // Enable scrolling for disk and GPU windows
     scrollok(disk_win, TRUE);
+    scrollok(gpu_win, TRUE);
 
     // Clear the screen and refresh
     clear();
@@ -109,6 +124,7 @@ int init_display(void) {
 }
 
 void cleanup_display(void) {
+    if (gpu_win) delwin(gpu_win);
     if (disk_win) delwin(disk_win);
     if (mem_win) delwin(mem_win);
     if (cpu_win) delwin(cpu_win);
@@ -122,8 +138,15 @@ static int get_usage_color(double usage) {
     return 3;                          // Red
 }
 
+static int get_temp_color(int temp) {
+    if (!has_colors()) return 0;
+    if (temp < 60) return 1;           // Green
+    else if (temp < 80) return 2;      // Yellow
+    return 3;                          // Red
+}
+
 void display_stats(const SystemStats *stats) {
-    if (!stats || !cpu_win || !mem_win || !disk_win) return;
+    if (!stats || !cpu_win || !mem_win || !disk_win || !gpu_win) return;
 
     char buf[32];
 
@@ -218,6 +241,80 @@ void display_stats(const SystemStats *stats) {
     }
 
     wrefresh(disk_win);
+
+    // Update GPU window
+    werase(gpu_win);
+    box(gpu_win, 0, 0);
+    
+    if (stats->gpus.count > 0) {
+        mvwprintw(gpu_win, 0, 2, " GPU Information ");
+        
+        int y = 1;
+        for (unsigned int i = 0; i < stats->gpus.count && y < GPU_WIN_HEIGHT - 1; i++) {
+            const GPUStats *gpu = &stats->gpus.gpus[i];
+            
+            // Display GPU name and basic info
+            if (has_colors()) wattron(gpu_win, COLOR_PAIR(4));
+            mvwprintw(gpu_win, y, 2, "GPU %u: %s", i + 1, gpu->name);
+            if (has_colors()) wattroff(gpu_win, COLOR_PAIR(4));
+            y++;
+
+            if (gpu->supported) {
+                // Display temperature
+                int temp_color = get_temp_color(gpu->temperature);
+                if (temp_color) wattron(gpu_win, COLOR_PAIR(temp_color));
+                mvwprintw(gpu_win, y, 4, "Temp: %d°C", gpu->temperature);
+                if (temp_color) wattroff(gpu_win, COLOR_PAIR(temp_color));
+
+                // Display utilization
+                int util_color = get_usage_color(gpu->utilization);
+                if (util_color) wattron(gpu_win, COLOR_PAIR(util_color));
+                mvwprintw(gpu_win, y, 25, "Usage: %.1f%%", gpu->utilization);
+                if (util_color) wattroff(gpu_win, COLOR_PAIR(util_color));
+
+                // Display fan speed
+                mvwprintw(gpu_win, y, 45, "Fan: %d%%", gpu->fan_speed);
+                y++;
+
+                // Display memory information
+                if (gpu->memory_total > 0) {
+                    format_bytes(gpu->memory_total, buf, sizeof(buf));
+                    mvwprintw(gpu_win, y, 4, "Memory Total: %s", buf);
+                    
+                    format_bytes(gpu->memory_used, buf, sizeof(buf));
+                    mvwprintw(gpu_win, y, 30, "Used: %s", buf);
+                    y++;
+
+                    double mem_usage = 100.0 * ((double)gpu->memory_used / gpu->memory_total);
+                    int mem_color = get_usage_color(mem_usage);
+                    if (mem_color) wattron(gpu_win, COLOR_PAIR(mem_color));
+                    mvwprintw(gpu_win, y, 4, "Memory Usage: %.1f%%", mem_usage);
+                    if (mem_color) wattroff(gpu_win, COLOR_PAIR(mem_color));
+                    y++;
+                }
+
+                // Display power usage if available
+                if (gpu->power_usage > 0) {
+                    mvwprintw(gpu_win, y, 4, "Power Usage: %.1f W", gpu->power_usage / 1000.0);
+                    y++;
+                }
+            } else {
+                mvwprintw(gpu_win, y, 4, "Limited information available");
+                y++;
+            }
+
+            // Add a separator line between GPUs
+            if (i + 1 < stats->gpus.count && y < GPU_WIN_HEIGHT - 1) {
+                mvwhline(gpu_win, y, 1, ACS_HLINE, WIN_WIDTH - 2);
+                y++;
+            }
+        }
+    } else {
+        mvwprintw(gpu_win, 0, 2, " GPU Information (No GPUs detected) ");
+        mvwprintw(gpu_win, 1, 2, "No GPU information available");
+    }
+
+    wrefresh(gpu_win);
 
     // Refresh the screen
     refresh();

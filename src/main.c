@@ -44,9 +44,19 @@ int main(void) {
         return EXIT_FAILURE;
     }
     
+    // Initialize GPU monitoring
+    if (init_gpu_monitor() != 0) {
+        fprintf(stderr, "Failed to initialize GPU monitor\n");
+        cleanup_disk_monitor();
+        cleanup_memory_monitor();
+        cleanup_cpu_monitor();
+        return EXIT_FAILURE;
+    }
+    
     // Initialize ncurses
     if (init_display() != 0) {
         fprintf(stderr, "Failed to initialize display\n");
+        cleanup_gpu_monitor();
         cleanup_disk_monitor();
         cleanup_memory_monitor();
         cleanup_cpu_monitor();
@@ -63,6 +73,7 @@ int main(void) {
     
     // Cleanup
     cleanup_display();
+    cleanup_gpu_monitor();
     cleanup_disk_monitor();
     cleanup_memory_monitor();
     cleanup_cpu_monitor();

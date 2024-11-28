@@ -23,9 +23,16 @@ int main(void) {
     // Set up signal handler for clean exit
     signal(SIGINT, sig_handler);
     
+    // Initialize CPU monitoring
+    if (init_cpu_monitor() != 0) {
+        fprintf(stderr, "Failed to initialize CPU monitor\n");
+        return EXIT_FAILURE;
+    }
+    
     // Initialize ncurses
     if (init_display() != 0) {
         fprintf(stderr, "Failed to initialize display\n");
+        cleanup_cpu_monitor();
         return EXIT_FAILURE;
     }
     
@@ -39,5 +46,6 @@ int main(void) {
     
     // Cleanup
     cleanup_display();
+    cleanup_cpu_monitor();
     return EXIT_SUCCESS;
 } 

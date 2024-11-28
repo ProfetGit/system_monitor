@@ -30,7 +30,7 @@ int main(void) {
     }
     
     // Initialize Memory monitoring
-    if (init_memory_monitor() != 0) {
+    if (init_memory_monitoring() != 0) {
         fprintf(stderr, "Failed to initialize Memory monitor\n");
         cleanup_cpu_monitor();
         return EXIT_FAILURE;
@@ -39,7 +39,7 @@ int main(void) {
     // Initialize Disk monitoring
     if (init_disk_monitor() != 0) {
         fprintf(stderr, "Failed to initialize Disk monitor\n");
-        cleanup_memory_monitor();
+        cleanup_memory_monitoring();
         cleanup_cpu_monitor();
         return EXIT_FAILURE;
     }
@@ -48,7 +48,7 @@ int main(void) {
     if (init_gpu_monitor() != 0) {
         fprintf(stderr, "Failed to initialize GPU monitor\n");
         cleanup_disk_monitor();
-        cleanup_memory_monitor();
+        cleanup_memory_monitoring();
         cleanup_cpu_monitor();
         return EXIT_FAILURE;
     }
@@ -58,7 +58,7 @@ int main(void) {
         fprintf(stderr, "Failed to initialize display\n");
         cleanup_gpu_monitor();
         cleanup_disk_monitor();
-        cleanup_memory_monitor();
+        cleanup_memory_monitoring();
         cleanup_cpu_monitor();
         return EXIT_FAILURE;
     }
@@ -75,7 +75,7 @@ int main(void) {
     cleanup_display();
     cleanup_gpu_monitor();
     cleanup_disk_monitor();
-    cleanup_memory_monitor();
+    cleanup_memory_monitoring();
     cleanup_cpu_monitor();
     return EXIT_SUCCESS;
 } 

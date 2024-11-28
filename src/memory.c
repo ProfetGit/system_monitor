@@ -14,6 +14,25 @@
 #define GB_TO_BYTES (1024UL * 1024UL * 1024UL)
 
 /**
+ * @brief Initialize memory monitoring
+ * @return 0 on success, -1 on failure
+ */
+int init_memory_monitoring(void) {
+    // Check if we can read memory information
+    FILE *fp = fopen("/proc/meminfo", "r");
+    if (!fp) return -1;
+    fclose(fp);
+    return 0;
+}
+
+/**
+ * @brief Clean up memory monitoring resources
+ */
+void cleanup_memory_monitoring(void) {
+    // No cleanup needed for memory monitoring
+}
+
+/**
  * @brief Read memory information from /proc/meminfo
  * @param stats Pointer to MemoryStats structure to update
  * @return 0 on success, -1 on failure
@@ -74,10 +93,6 @@ static int read_proc_meminfo(MemoryStats *stats) {
         stats->swap_usage = 0.0;
     }
 
-    return 0;
-}
-
-int init_memory_monitor(void) {
     return 0;
 }
 

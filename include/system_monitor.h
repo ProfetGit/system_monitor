@@ -14,6 +14,7 @@
 #include <unistd.h>
 #include "cpu.h"
 #include "memory.h"
+#include "disk.h"
 
 /**
  * @brief Structure to hold system statistics
@@ -21,6 +22,7 @@
 typedef struct {
     CPUStats cpu;        /**< CPU statistics */
     MemoryStats memory;  /**< Memory statistics */
+    DiskInfo disks;      /**< Disk statistics */
 } SystemStats;
 
 /**

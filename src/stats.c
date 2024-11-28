@@ -15,5 +15,8 @@ int update_stats(SystemStats *stats) {
     // Update Memory statistics
     if (update_memory_stats(&stats->memory) != 0) return -1;
 
+    // Update Disk statistics
+    if (update_disk_stats(&stats->disks) != 0) return -1;
+
     return 0;
 } 

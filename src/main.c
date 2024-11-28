@@ -36,9 +36,18 @@ int main(void) {
         return EXIT_FAILURE;
     }
     
+    // Initialize Disk monitoring
+    if (init_disk_monitor() != 0) {
+        fprintf(stderr, "Failed to initialize Disk monitor\n");
+        cleanup_memory_monitor();
+        cleanup_cpu_monitor();
+        return EXIT_FAILURE;
+    }
+    
     // Initialize ncurses
     if (init_display() != 0) {
         fprintf(stderr, "Failed to initialize display\n");
+        cleanup_disk_monitor();
         cleanup_memory_monitor();
         cleanup_cpu_monitor();
         return EXIT_FAILURE;
@@ -54,6 +63,7 @@ int main(void) {
     
     // Cleanup
     cleanup_display();
+    cleanup_disk_monitor();
     cleanup_memory_monitor();
     cleanup_cpu_monitor();
     return EXIT_SUCCESS;

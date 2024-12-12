@@ -1,13 +1,13 @@
 /**
- * @mainpage System Monitor Documentation
+ * @page architecture System Architecture
  *
- * @section intro Introduction
+ * @section arch_intro Introduction
  * 
  * The System Monitor is a comprehensive system resource monitoring application
  * that provides real-time information about various system components. It uses
  * ncurses for the user interface and is designed to be efficient and lightweight.
  *
- * @section arch Architecture
+ * @section arch_overview Architecture Overview
  *
  * The application is structured into several key components:
  *
@@ -36,7 +36,7 @@
  *   - Memory usage tracking
  *   - Performance metrics
  *
- * @section usage Usage Guide
+ * @section arch_usage Usage Guide
  *
  * The application can be started with an optional update interval parameter:
  * @code{.sh}
@@ -46,7 +46,7 @@
  * The default update interval is 1000ms (1 second). The minimum allowed interval
  * is 100ms to prevent excessive system load.
  *
- * @section api API Overview
+ * @section arch_api API Overview
  *
  * The main API functions are:
  * - init_display() - Initialize the ncurses interface
@@ -57,7 +57,7 @@
  * Each subsystem (CPU, memory, disk, GPU) has its own initialization, update,
  * and cleanup functions following the same pattern.
  *
- * @section datastructs Data Structures
+ * @section arch_datastructs Data Structures
  *
  * The key data structures are:
  * - SystemStats - Main container for all statistics
@@ -66,7 +66,7 @@
  * - DiskInfo - Disk space and I/O statistics
  * - GPUInfo - GPU monitoring data
  *
- * @section examples Examples
+ * @section arch_examples Examples
  *
  * Basic usage example:
  * @code{.c}
@@ -86,14 +86,14 @@
  * cleanup_display();
  * @endcode
  *
- * @section notes Implementation Notes
+ * @section arch_notes Implementation Notes
  *
  * - All memory values are in bytes
  * - Percentages are represented as doubles from 0.0 to 100.0
  * - Error handling follows the convention: 0 for success, -1 for failure
  * - The application is designed to be signal-safe
  *
- * @section requirements System Requirements
+ * @section arch_requirements System Requirements
  *
  * - Linux-based operating system
  * - ncurses library

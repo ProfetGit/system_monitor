@@ -1,0 +1,23 @@
+<map id="include/system_monitor.h" name="include/system_monitor.h">
+<area shape="rect" id="Node000001" title="Main header file for the system monitor application." alt="" coords="336,5,527,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,79,89,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="365,33,103,81,103,76,365,28"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="113,79,184,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="387,33,198,80,197,75,385,28"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="208,79,279,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="402,33,288,76,286,71,400,28"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="303,79,378,104"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="418,33,368,72,365,68,415,29"/>
+<area shape="rect" id="Node000006" href="$dc/da7/cpu_8h.html" title="CPU monitoring functionality." alt="" coords="403,79,460,104"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="434,31,434,65,429,65,429,31"/>
+<area shape="rect" id="Node000007" href="$dc/d18/memory_8h.html" title="Memory monitoring functionality." alt="" coords="484,79,571,104"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="448,29,502,68,499,72,445,33"/>
+<area shape="rect" id="Node000008" href="$d2/d50/disk_8h.html" title="Disk monitoring functionality." alt="" coords="595,79,657,104"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="464,28,583,72,581,77,462,33"/>
+<area shape="rect" id="Node000009" href="$d3/d93/gpu_8h.html" title="GPU monitoring functionality." alt="" coords="681,79,739,104"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="479,28,668,76,666,81,478,33"/>
+<area shape="rect" id="Node000010" href="$d9/d94/network_8h.html" title="Network interface monitoring functionality." alt="" coords="764,79,851,104"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="495,28,751,76,750,81,494,33"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="770,152,845,177"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="810,104,810,138,805,138,805,104"/>
+</map>

@@ -11,11 +11,24 @@
 #define MEMORY_H
 
 /**
+ * @defgroup memory Memory Monitoring
+ * @{
+ * @brief Memory usage monitoring functionality
+ *
+ * The memory monitoring module provides functionality for tracking system memory usage,
+ * including both physical RAM and swap space. It can monitor various memory metrics
+ * such as total memory, free memory, cached memory, and swap usage.
+ */
+
+/**
  * @brief Structure to hold memory statistics
  * 
  * This structure contains comprehensive information about the system's memory usage,
  * including both physical RAM and swap space. All values are in bytes unless
  * otherwise specified.
+ *
+ * @see init_memory_monitoring
+ * @see update_memory_stats
  */
 typedef struct {
     unsigned long total;      /**< Total physical memory in bytes */
@@ -38,6 +51,8 @@ typedef struct {
  * before using update_memory_stats().
  * 
  * @note This function is idempotent - calling it multiple times has no effect
+ * @see cleanup_memory_monitoring
+ * @see update_memory_stats
  */
 int init_memory_monitoring(void);
 
@@ -52,6 +67,8 @@ int init_memory_monitoring(void);
  * 
  * @note Requires prior call to init_memory_monitoring()
  * @warning The stats parameter must not be NULL
+ * @see MemoryStats
+ * @see init_memory_monitoring
  */
 int update_memory_stats(MemoryStats *stats);
 
@@ -62,7 +79,10 @@ int update_memory_stats(MemoryStats *stats);
  * Should be called before program exit for proper cleanup.
  * 
  * @note This function is safe to call even if init_memory_monitoring() was not called
+ * @see init_memory_monitoring
  */
 void cleanup_memory_monitoring(void);
+
+/** @} */ // end of memory group
 
 #endif /* MEMORY_H */ 

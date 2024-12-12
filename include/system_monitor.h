@@ -10,6 +10,15 @@
 #ifndef SYSTEM_MONITOR_H
 #define SYSTEM_MONITOR_H
 
+/**
+ * @defgroup core Core System
+ * @{
+ * @brief Core system functionality and data structures
+ *
+ * The core system module provides the main functionality for coordinating
+ * different monitoring subsystems and managing the user interface.
+ */
+
 #include <ncurses.h>
 #include <stdlib.h>
 #include <string.h>
@@ -26,6 +35,12 @@
  * This structure serves as the central data container for all system metrics.
  * It aggregates statistics from various subsystems including CPU, memory,
  * disk, GPU, and network information.
+ *
+ * @see CPUStats
+ * @see MemoryStats
+ * @see DiskInfo
+ * @see GPUInfo
+ * @see NetworkStats
  */
 typedef struct {
     CPUStats cpu;        /**< CPU statistics including usage and frequency information */
@@ -43,6 +58,7 @@ typedef struct {
  * and prepares the display layout. Must be called before any display operations.
  * 
  * @note The terminal must support ncurses operations
+ * @see cleanup_display
  */
 int init_display(void);
 
@@ -51,12 +67,14 @@ int init_display(void);
  * 
  * @details Properly closes the ncurses window and restores terminal settings.
  * Should be called before program exit to ensure proper cleanup.
+ *
+ * @see init_display
  */
 void cleanup_display(void);
 
 /**
  * @brief Update system statistics
- * @param stats Pointer to SystemStats structure to update
+ * @param[in,out] stats Pointer to SystemStats structure to update with fresh data
  * @return 0 on success, -1 on failure
  * 
  * @details Gathers fresh statistics from all monitored subsystems and updates
@@ -64,19 +82,24 @@ void cleanup_display(void);
  * system metrics.
  * 
  * @warning The stats parameter must not be NULL
+ * @see SystemStats
  */
 int update_stats(SystemStats *stats);
 
 /**
  * @brief Display system statistics on the screen
- * @param stats Pointer to SystemStats structure containing current statistics
+ * @param[in] stats Pointer to SystemStats structure containing current statistics to display
  * 
  * @details Renders the current system statistics in a formatted layout using
  * ncurses. Updates the entire display with fresh data from the stats structure.
  * 
  * @note init_display() must be called before using this function
  * @warning The stats parameter must not be NULL and contain valid data
+ * @see init_display
+ * @see SystemStats
  */
 void display_stats(const SystemStats *stats);
+
+/** @} */ // end of core group
 
 #endif /* SYSTEM_MONITOR_H */ 

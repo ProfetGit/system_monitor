@@ -1,0 +1,13 @@
+<map id="include/cpu.h" name="include/cpu.h">
+<area shape="rect" id="Node000001" title="CPU monitoring functionality." alt="" coords="201,5,309,31"/>
+<area shape="rect" id="Node000002" href="$df/dc9/system__monitor_8h.html" title="Main header file for the system monitor application." alt="" coords="81,79,271,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="234,42,191,80,187,76,230,38"/>
+<area shape="rect" id="Node000006" href="$d6/d5d/cpu_8c.html" title="Implementation of CPU monitoring functionality." alt="" coords="295,79,374,104"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="279,38,323,76,320,80,276,42"/>
+<area shape="rect" id="Node000003" href="$db/d85/display_8c.html" title="Implementation of display&#45;related functions." alt="" coords="5,152,107,177"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="146,113,77,154,74,149,143,109"/>
+<area shape="rect" id="Node000004" href="$d0/d29/main_8c.html" title="Main entry point for the system monitor application." alt="" coords="131,152,221,177"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="179,118,179,152,173,152,173,118"/>
+<area shape="rect" id="Node000005" href="$da/df1/stats_8c.html" title="Implementation of system statistics gathering functions." alt="" coords="245,152,333,177"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="208,109,272,150,269,154,205,114"/>
+</map>

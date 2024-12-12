@@ -1,0 +1,5 @@
+<map id="GPUInfo" name="GPUInfo">
+<area shape="rect" id="Node000001" title="Structure to hold all GPU information." alt="" coords="5,293,141,379"/>
+<area shape="rect" id="Node000002" href="$df/d93/structGPUStats.html" title="Structure to hold GPU statistics." alt="" coords="13,5,134,231"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="76,231,76,277,71,277,71,231"/>
+</map>

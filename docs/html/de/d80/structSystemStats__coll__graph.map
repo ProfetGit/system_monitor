@@ -1,0 +1,19 @@
+<map id="SystemStats" name="SystemStats">
+<area shape="rect" id="Node000001" title="Structure to hold system statistics." alt="" coords="263,641,359,707"/>
+<area shape="rect" id="Node000002" href="$d7/df7/structCPUStats.html" title="Structure to hold CPU statistics." alt="" coords="5,403,119,509"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="88,508,108,543,133,577,159,601,188,621,249,650,247,655,186,625,156,605,129,580,104,546,83,510"/>
+<area shape="rect" id="Node000003" href="$da/d4f/structMemoryStats.html" title="Structure to hold memory statistics." alt="" coords="143,333,253,579"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="219,578,238,616,253,633,249,637,233,619,214,580"/>
+<area shape="rect" id="Node000004" href="$d5/dde/structDiskInfo.html" title="Structure to hold all disk statistics." alt="" coords="277,423,345,489"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="314,489,314,625,309,625,309,489"/>
+<area shape="rect" id="Node000005" href="$dd/d20/structDiskStats.html" title="Structure to hold disk partition information." alt="" coords="230,25,353,251"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="301,251,311,407,306,407,296,251"/>
+<area shape="rect" id="Node000006" href="$dc/d66/structGPUInfo.html" title="Structure to hold all GPU information." alt="" coords="370,413,506,499"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="426,500,402,558,368,619,359,630,355,627,364,616,398,556,422,498"/>
+<area shape="rect" id="Node000007" href="$df/d93/structGPUStats.html" title="Structure to hold GPU statistics." alt="" coords="377,25,499,251"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="441,251,441,396,435,396,435,251"/>
+<area shape="rect" id="Node000008" href="$d4/d7b/structNetworkStats.html" title="Structure to hold all network interface statistics." alt="" coords="535,423,664,489"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="587,490,559,536,541,560,520,581,486,606,448,626,376,657,374,652,446,622,483,601,516,577,537,556,555,533,582,487"/>
+<area shape="rect" id="Node000009" href="$dc/d2f/structNetworkInterfaceStats.html" title="Structure to hold statistics for a single network interface." alt="" coords="523,5,683,271"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="604,271,603,407,597,407,599,271"/>
+</map>

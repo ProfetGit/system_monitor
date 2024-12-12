@@ -1,0 +1,5 @@
+<map id="DiskInfo" name="DiskInfo">
+<area shape="rect" id="Node000001" title="Structure to hold all disk statistics." alt="" coords="33,293,101,359"/>
+<area shape="rect" id="Node000002" href="$dd/d20/structDiskStats.html" title="Structure to hold disk partition information." alt="" coords="5,5,128,231"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="69,231,69,277,64,277,64,231"/>
+</map>

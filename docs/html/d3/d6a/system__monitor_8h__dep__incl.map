@@ -1,0 +1,9 @@
+<map id="include/system_monitor.h" name="include/system_monitor.h">
+<area shape="rect" id="Node000001" title="Main header file for the system monitor application." alt="" coords="81,5,271,31"/>
+<area shape="rect" id="Node000002" href="$db/d85/display_8c.html" title="Implementation of display&#45;related functions." alt="" coords="5,79,107,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="146,40,77,81,74,76,143,35"/>
+<area shape="rect" id="Node000003" href="$d0/d29/main_8c.html" title="Main entry point for the system monitor application." alt="" coords="131,79,221,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="179,44,179,79,173,79,173,44"/>
+<area shape="rect" id="Node000004" href="$da/df1/stats_8c.html" title="Implementation of system statistics gathering functions." alt="" coords="245,79,333,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="208,36,272,76,269,81,205,40"/>
+</map>

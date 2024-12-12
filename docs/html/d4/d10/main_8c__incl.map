@@ -1,0 +1,27 @@
+<map id="src/main.c" name="src/main.c">
+<area shape="rect" id="Node000001" title="Main entry point for the system monitor application." alt="" coords="452,5,541,31"/>
+<area shape="rect" id="Node000002" href="$df/dc9/system__monitor_8h.html" title="Main header file for the system monitor application." alt="" coords="362,79,501,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="488,33,453,70,449,67,484,29"/>
+<area shape="rect" id="Node000013" title=" " alt="" coords="525,79,599,104"/>
+<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="509,29,544,67,540,70,505,33"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,152,89,177"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="365,107,103,154,103,149,365,101"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="113,152,184,177"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="387,107,198,154,197,149,385,101"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="208,152,279,177"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="402,107,288,149,286,144,400,102"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="303,152,378,177"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="418,106,368,145,365,141,415,102"/>
+<area shape="rect" id="Node000007" href="$dc/da7/cpu_8h.html" title="CPU monitoring functionality." alt="" coords="403,152,460,177"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="434,104,434,138,429,138,429,104"/>
+<area shape="rect" id="Node000008" href="$dc/d18/memory_8h.html" title="Memory monitoring functionality." alt="" coords="484,152,571,177"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="448,102,502,141,499,146,445,106"/>
+<area shape="rect" id="Node000009" href="$d2/d50/disk_8h.html" title="Disk monitoring functionality." alt="" coords="595,152,657,177"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="464,102,583,145,581,150,462,107"/>
+<area shape="rect" id="Node000010" href="$d3/d93/gpu_8h.html" title="GPU monitoring functionality." alt="" coords="681,152,739,177"/>
+<area shape="poly" id="edge9_Node000002_Node000010" title=" " alt="" coords="479,101,668,149,666,154,478,107"/>
+<area shape="rect" id="Node000011" href="$d9/d94/network_8h.html" title="Network interface monitoring functionality." alt="" coords="764,152,851,177"/>
+<area shape="poly" id="edge10_Node000002_Node000011" title=" " alt="" coords="495,101,751,149,750,155,494,107"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="770,225,845,251"/>
+<area shape="poly" id="edge11_Node000011_Node000012" title=" " alt="" coords="810,178,810,212,805,212,805,178"/>
+</map>

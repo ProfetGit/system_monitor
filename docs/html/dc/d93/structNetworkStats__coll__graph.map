@@ -1,0 +1,5 @@
+<map id="NetworkStats" name="NetworkStats">
+<area shape="rect" id="Node000001" title="Structure to hold all network interface statistics." alt="" coords="21,333,150,399"/>
+<area shape="rect" id="Node000002" href="$dc/d2f/structNetworkInterfaceStats.html" title="Structure to hold statistics for a single network interface." alt="" coords="5,5,165,271"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="88,271,88,317,83,317,83,271"/>
+</map>
